@@ -1,49 +1,57 @@
 import React from 'react';
-import pokemons from './data';
 import Pokemon from './Pokemon';
+import './Pokedex.css'
+// import pokemons from './data';
 
 class Pokedex extends React.Component {
-    constructor() {
-        super()
+    constructor(props) {
+        super(props);
         this.state = {
             position: 0,
-            limitArray: (pokemons.length - 1),
+            limitArray: (props.pokemons.length - 1),
             selectedType: '',
+            arrayPokemon: props.pokemons,
         }
         this.changePokemom = this.changePokemom.bind(this);
         this.handleType = this.handleType.bind(this);
+        this.filterPokemonsType = this.filterPokemonsType.bind(this);
+        this.changePokemom = this.changePokemom.bind(this);
     }
 
-    changePokemom = () => {
-        console.log(render.newLimit);
-        if (this.state.position < this.newLimit) {
-            this.setState((actual) => ({
-                position: actual.position + 1
-            }))
-        } else {
-            this.setState(() => ({
-                position: 0
-            }))
-        }
+    changePokemom(){
+        const { position, limitArray } = this.state;
+        position < limitArray ? this.setState({ position: position + 1}) : this.setState({ position: 0});
     }
 
-    handleType(event) {
-        // console.log(event.target.value)
-        this.setState ({
-            selectedType: event.target.value,
-            // limitArray: this.newLimit,
+    filterPokemonsType(type) {
+        // const { selectedType } = this.state;
+        const { pokemons } = this.props;
+        // const actualArrayPokemons = pokemons;
+        const filteredArray = pokemons.filter((pokemon) => pokemon.type.includes(type));
+        this.setState({
+            arrayPokemon: [...filteredArray],
+            limitArray: filteredArray.length -1,
         })
+        console.log(filteredArray);
+        console.log(pokemons);
+    }
+
+    handleType({target}) {
+        this.setState ({
+            selectedType: target.value,
+        })
+        this.filterPokemonsType(target.value);
     }
 
 
     render() {
-        const index = this.state.position;
-        const { pokemons } = this.props;
-        const arrayPokemonsFiltered = pokemons.filter((pokemon) => pokemon.type.includes(this.state.selectedType));
-        let newLimit = arrayPokemonsFiltered.length
+        // const { pokemons } = this.props;
+        const { arrayPokemon, position } = this.state;
         return (
             <div className="pokedex">
-                <Pokemon key={arrayPokemonsFiltered[index].name} pokemon={arrayPokemonsFiltered[index]} />
+                <div className="pokedex-section">
+                    <Pokemon key={arrayPokemon[position].name} pokemon={arrayPokemon[position]} />
+                </div>
                 <div className="buttons">
                     <button onClick={this.handleType} className="select-type" value=""> All </button>
                     <button onClick={this.handleType} className="select-type" value="Electric"> Electric </button>
