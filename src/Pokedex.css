@@ -7,6 +7,12 @@
   margin: 0 auto;
   display: flex;
   flex-direction: column;
+  font-family: 'B612', sans-serif;
+  font-size: 20px;
+}
+
+.buttons {
+  margin-top: 15px;
 }
 
 .select-type {
@@ -14,9 +20,36 @@
   margin: 10px;
   padding: 5px;
   border-radius: 5px;
-  background-color: rgb(156, 253, 240);
+  background-color: #ECF87F;
+  border: none;
+  color:  #3D550C;
+  font-weight: 600;
+  
 }
 
 .select-type:hover {
-  background-color:greenyellow;
+  background-color:#81B622;
+  font-weight: 600;
+  color: #ECF87F;
+}
+
+.change-pokemon {
+  width: 100px;
+  border: none;
+  color: white;
+  background-color: #FF4500;
+  margin-top: 30px;
+  font-weight: 600;
+  padding: 5px 10px;
+  border-radius: 3px;
+}
+
+.change-pokemon:hover {
+  background-color: #DF362D;
+
+}
+
+.change-pokemon:disabled {
+  background-color: lightgray;
+  color: gray;
 }
